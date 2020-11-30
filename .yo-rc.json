@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "namespace": "Crm",
+    "applicationType": "monolith",
+    "promptValues": {
+      "nativeLanguage": "fa"
+    },
+    "databaseType": "mssql",
+    "authenticationType": "jwt",
+    "serverPort": "5000",
+    "prodDatabaseType": "mysql",
+    "jhipsterVersion": "6.10.5",
+    "baseName": "Crm",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1606764001564,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-dotnetcore",
+        "version": "2.0.1"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "fa",
+    "languages": ["fa", "en"],
+    "blueprints": [
+      {
+        "name": "generator-jhipster-dotnetcore",
+        "version": "2.0.1"
+      }
+    ]
+  }
+}
