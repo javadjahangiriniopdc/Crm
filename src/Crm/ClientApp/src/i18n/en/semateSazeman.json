@@ -1,0 +1,24 @@
+{
+  "crmApp": {
+    "semateSazeman": {
+      "home": {
+        "title": "Semate Sazemen",
+        "createLabel": "Create a new Semate Sazeman",
+        "createOrEditLabel": "Create or edit a Semate Sazeman",
+        "notFound": "No Semate Sazemen found"
+      },
+      "created": "A new Semate Sazeman is created with identifier {{ param }}",
+      "updated": "A Semate Sazeman is updated with identifier {{ param }}",
+      "deleted": "A Semate Sazeman is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Semate Sazeman {{ id }}?"
+      },
+      "detail": {
+        "title": "Semate Sazeman"
+      },
+      "semateSazemanName": "Semate Sazeman Name",
+      "contact": "Contact",
+      "sazeman": "Sazeman"
+    }
+  }
+}

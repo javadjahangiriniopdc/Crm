@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,11 +20,15 @@ namespace Crm.Infrastructure.Data {
         IdentityUserToken<string>
     > {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        
+
         public ApplicationDatabaseContext(DbContextOptions<ApplicationDatabaseContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Sazeman> Sazemen { get; set; }
+        public DbSet<SemateSazeman> SemateSazemen { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -37,7 +42,7 @@ namespace Crm.Infrastructure.Data {
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
-    
+
             builder.Entity<UserRole>(userRole => {
                 userRole.HasKey(ur => new {ur.UserId, ur.RoleId});
 
@@ -58,6 +63,7 @@ namespace Crm.Infrastructure.Data {
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+            
         }
 
         /// <summary>

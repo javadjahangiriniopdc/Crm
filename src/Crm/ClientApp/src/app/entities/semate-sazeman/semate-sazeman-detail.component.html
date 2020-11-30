@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="semateSazeman">
+            <h2><span jhiTranslate="crmApp.semateSazeman.detail.title">Semate Sazeman</span> {{ semateSazeman.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="crmApp.semateSazeman.semateSazemanName">Semate Sazeman Name</span></dt>
+                <dd>
+                    <span>{{ semateSazeman.semateSazemanName }}</span>
+                </dd>
+                <dt><span jhiTranslate="crmApp.semateSazeman.sazeman">Sazeman</span></dt>
+                <dd>
+                    <div *ngIf="semateSazeman.sazeman">
+                        <a [routerLink]="['/sazeman', semateSazeman.sazeman?.id, 'view']">{{ semateSazeman.sazeman?.sazemanName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/semate-sazeman', semateSazeman.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

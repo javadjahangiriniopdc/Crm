@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-contact-heading" jhiTranslate="crmApp.contact.home.createOrEditLabel">Create or edit a Contact</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.personCode" for="field_personCode">Person Code</label>
+                    <input type="text" class="form-control" name="personCode" id="field_personCode"
+                           formControlName="personCode"/>
+                    <div *ngIf="editForm.get('personCode')!.invalid && (editForm.get('personCode')!.dirty || editForm.get('personCode')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('personCode')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.contactName" for="field_contactName">Contact Name</label>
+                    <input type="text" class="form-control" name="contactName" id="field_contactName"
+                           formControlName="contactName"/>
+                    <div *ngIf="editForm.get('contactName')!.invalid && (editForm.get('contactName')!.dirty || editForm.get('contactName')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contactName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contactName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.birthDate" for="field_birthDate">Birth Date</label>
+                    <div class="input-group">
+                        <input id="field_birthDate" type="text" class="form-control" name="birthDate" ngbDatepicker #birthDateDp="ngbDatepicker" formControlName="birthDate" [firstDayOfWeek]="6" [minDate]="{year: 1300, month: 1, day: 1}" (click)="birthDateDp.toggle()"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.description" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                              formControlName="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.attachFile" for="field_attachFile">Attach File</label>
+                    <div>
+                        <div *ngIf="editForm.get('attachFile')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('attachFileContentType')!.value, editForm.get('attachFile')!.value)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{ editForm.get('attachFileContentType')!.value }}, {{ byteSize(editForm.get('attachFile')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({attachFile: null});editForm.patchValue({attachFileContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_attachFile" (change)="setFileData($event, 'attachFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="attachFile" id="field_attachFile"
+                           formControlName="attachFile"/>
+                    <input type="hidden" class="form-control" name="attachFileContentType" id="field_attachFileContentType"
+                           formControlName="attachFileContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.sazeman" for="field_sazeman">Sazeman</label>
+                    <select class="form-control" id="field_sazeman" name="sazeman" formControlName="sazeman">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sazemanOption.id === editForm.get('sazeman')!.value?.id ? editForm.get('sazeman')!.value : sazemanOption" *ngFor="let sazemanOption of sazemen; trackBy: trackById">{{ sazemanOption.sazemanName }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="crmApp.contact.semateSazeman" for="field_semateSazeman">Semate Sazeman</label>
+                    <select class="form-control" id="field_semateSazeman" name="semateSazeman" formControlName="semateSazeman">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="semateSazemanOption.id === editForm.get('semateSazeman')!.value?.id ? editForm.get('semateSazeman')!.value : semateSazemanOption" *ngFor="let semateSazemanOption of sematesazemen; trackBy: trackById">{{ semateSazemanOption.semateSazemanName }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

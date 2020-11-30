@@ -1,0 +1,26 @@
+entity Contact{
+	personCode String required unique     
+	contactName String required maxlength(100),
+	birthDate LocalDate,
+	description TextBlob,
+	AttachFile Blob
+}
+
+entity Sazeman{
+	sazemanName String required
+}
+
+entity SemateSazeman{
+	semateSazemanName String required
+}
+
+ relationship OneToMany{
+	Sazeman to SemateSazeman{Sazeman(sazemanName)}
+	Sazeman to Contact{Sazeman(sazemanName)}
+	SemateSazeman to Contact{SemateSazeman(semateSazemanName)}
+ }
+
+ 
+paginate * with pagination
+dto * with mapstruct
+service all with serviceImpl 

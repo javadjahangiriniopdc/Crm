@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="contact">
+            <h2><span jhiTranslate="crmApp.contact.detail.title">Contact</span> {{ contact.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="crmApp.contact.personCode">Person Code</span></dt>
+                <dd>
+                    <span>{{ contact.personCode }}</span>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.contactName">Contact Name</span></dt>
+                <dd>
+                    <span>{{ contact.contactName }}</span>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.birthDate">Birth Date</span></dt>
+                <dd>
+                    <span>{{ contact.birthDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.description">Description</span></dt>
+                <dd>
+                    <span>{{ contact.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.attachFile">Attach File</span></dt>
+                <dd>
+                    <div *ngIf="contact.attachFile">
+                        <a (click)="openFile(contact.attachFileContentType, contact.attachFile)" jhiTranslate="entity.action.open">open</a>
+                        {{ contact.attachFileContentType }}, {{ byteSize(contact.attachFile) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.sazeman">Sazeman</span></dt>
+                <dd>
+                    <div *ngIf="contact.sazeman">
+                        <a [routerLink]="['/sazeman', contact.sazeman?.id, 'view']">{{ contact.sazeman?.sazemanName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="crmApp.contact.semateSazeman">Semate Sazeman</span></dt>
+                <dd>
+                    <div *ngIf="contact.semateSazeman">
+                        <a [routerLink]="['/semate-sazeman', contact.semateSazeman?.id, 'view']">{{ contact.semateSazeman?.semateSazemanName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/contact', contact.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
